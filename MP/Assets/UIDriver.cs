@@ -8,6 +8,8 @@ public class UIDriver : MonoBehaviour {
     public static bool ignoreValueChanges;
     public int state = 0;
 
+    public Dropdown dropDown;
+
     [SerializeField]
     GameLogic gameLogic;
 

@@ -2381,8 +2381,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 602958969}
-        m_TargetAssemblyTypeName: SpawnObjectScript, Assembly-CSharp
+      - m_Target: {fileID: 1111830762}
+        m_TargetAssemblyTypeName: MP2SpawnObject, Assembly-CSharp
         m_MethodName: SpawnObject
         m_Mode: 1
         m_Arguments:
@@ -2977,6 +2977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  dropDown: {fileID: 580092984}
   gameLogic: {fileID: 1111830760}
   objectSelected: {fileID: 701354686}
   SliderValueText:
@@ -4104,6 +4105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1111830761}
   - component: {fileID: 1111830760}
+  - component: {fileID: 1111830762}
   m_Layer: 0
   m_Name: GameLogic
   m_TagString: GameLogic
@@ -4143,6 +4145,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1111830762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111830759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a319c2bb1da12ce40805468856a99205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameLogic: {fileID: 0}
+  uiDriver: {fileID: 0}
+  prefabList:
+  - {fileID: 8212535333983114747, guid: 1899d71addf3fa442bed22e3ce47e23d, type: 3}
+  - {fileID: 7586196344238149153, guid: bacf315a6b0c2c74882ec985f2b3fece, type: 3}
+  - {fileID: 5064363424440710448, guid: d0ed0ebadf7186747bc4295e9238d3ef, type: 3}
 --- !u!1 &1118788037
 GameObject:
   m_ObjectHideFlags: 0
