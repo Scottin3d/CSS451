@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIDriver : MonoBehaviour {
-    public static bool ignoreValueChanges;
-    public int state = 0;
 
+    private static bool ignoreValueChanges = false;
+    
+    int state = 0;
+
+    [SerializeField]
     public Dropdown dropDown;
 
     [SerializeField]
@@ -24,7 +28,10 @@ public class UIDriver : MonoBehaviour {
     public Slider ySlider;
     public Slider zSlider;
 
-   
+    [SerializeField]
+    Slider[] sliders = new Slider[3];
+
+
 
     const float TMAX = 20f;
     const float TMIN = -20f;
@@ -64,10 +71,9 @@ public class UIDriver : MonoBehaviour {
 }
 
 
-
     private void UpdateSelection() {
-        if (gameLogic.currentSelection) {
-            objectSelected.text = gameLogic.currentSelection.name;
+        if (gameLogic.GetCurrentSelection()) {
+            objectSelected.text = gameLogic.GetCurrentSelection().name;
         } else {
             objectSelected.text = "none";
         }
@@ -103,7 +109,7 @@ public class UIDriver : MonoBehaviour {
 
         //assign right min/max
         //update label
-        if (gameLogic.currentSelection == null) {
+        if (gameLogic.GetCurrentSelection() == null) {
             xSlider.value = 0;
             ySlider.value = 0;
             zSlider.value = 0;
@@ -112,7 +118,7 @@ public class UIDriver : MonoBehaviour {
             xSlider.minValue = TMIN;
             xSlider.maxValue = TMAX;
             //set value
-            xSlider.value = gameLogic.currentSelection.transform.position.x;
+            xSlider.value = gameLogic.GetCurrentSelection().transform.position.x;
             //set text
             SliderValueText[0].text = xSlider.value.ToString();
 
@@ -120,7 +126,7 @@ public class UIDriver : MonoBehaviour {
             ySlider.minValue = TMIN;
             ySlider.maxValue = TMAX;
             //set value
-            ySlider.value = gameLogic.currentSelection.transform.position.y;
+            ySlider.value = gameLogic.GetCurrentSelection().transform.position.y;
             //set text
             SliderValueText[1].text = ySlider.value.ToString();
 
@@ -128,54 +134,73 @@ public class UIDriver : MonoBehaviour {
             zSlider.minValue = TMIN;
             zSlider.maxValue = TMAX;
             //set value
-            zSlider.value = gameLogic.currentSelection.transform.position.z;
+            zSlider.value = gameLogic.GetCurrentSelection().transform.position.z;
             //set text
             SliderValueText[2].text = zSlider.value.ToString();
         } else if (scaleToggle.isOn) {
             xSlider.minValue = SMIN;
             xSlider.maxValue = SMAX;
             //set value
-            xSlider.value = gameLogic.currentSelection.transform.localScale.x;
+            xSlider.value = gameLogic.GetCurrentSelection().transform.localScale.x;
             //set text
             SliderValueText[0].text = xSlider.value.ToString();
 
             ySlider.minValue = SMIN;
             ySlider.maxValue = SMAX;
             //set value
-            ySlider.value = gameLogic.currentSelection.transform.localScale.y;
+            ySlider.value = gameLogic.GetCurrentSelection().transform.localScale.y;
             //set text
             SliderValueText[1].text = ySlider.value.ToString();
 
             zSlider.minValue = SMIN;
             zSlider.maxValue = SMAX;
             //set value
-            zSlider.value = gameLogic.currentSelection.transform.localScale.z;
+            zSlider.value = gameLogic.GetCurrentSelection().transform.localScale.z;
             //set text
             SliderValueText[2].text = zSlider.value.ToString();
 
         } else if (rotationToggle.isOn) {
-            xSlider.minValue = RMIN;
-            xSlider.maxValue = RMAX;
+            xSlider.minValue = ySlider.minValue = zSlider.minValue = RMIN;
+            xSlider.maxValue = ySlider.maxValue = zSlider.maxValue = RMAX;
+            //xSlider.minValue = RMIN;
+            //xSlider.maxValue = RMAX;
             //set value
-            xSlider.value = gameLogic.currentSelection.transform.rotation.x;
+            xSlider.value = gameLogic.GetCurrentSelection().transform.rotation.x;
             //set text
             SliderValueText[0].text = xSlider.value.ToString();
 
-            ySlider.minValue = RMIN;
-            ySlider.maxValue = RMAX;
+            //ySlider.minValue = RMIN;
+            //ySlider.maxValue = RMAX;
             //set value
-            ySlider.value = gameLogic.currentSelection.transform.rotation.y;
+            ySlider.value = gameLogic.GetCurrentSelection().transform.rotation.y;
             //set text
             SliderValueText[1].text = ySlider.value.ToString();
 
-            zSlider.minValue = RMIN;
-            zSlider.maxValue = RMAX;
+            //zSlider.minValue = RMIN;
+            //zSlider.maxValue = RMAX;
             //set value
-            zSlider.value = gameLogic.currentSelection.transform.rotation.z;
+            zSlider.value = gameLogic.GetCurrentSelection().transform.rotation.z;
             //set text
             SliderValueText[2].text = zSlider.value.ToString();
+
+            
         }
 
         ignoreValueChanges = false;
+    }
+
+    public int State() {
+        return state;
+    }
+
+    public static bool IgnoreChange() {
+        return ignoreValueChanges;
+    }
+
+    public int GetDropDownValue() {
+        return dropDown.value;
+    }
+    public void ResetDropdown() {
+        dropDown.value = 0;
     }
 }

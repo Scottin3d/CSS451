@@ -7,7 +7,9 @@ using UnityEngine.UI;
 
 public class GameLogic : MonoBehaviour {
 
-    public GameObject currentSelection;
+    [SerializeField]
+    GameObject currentSelection;
+
     public UIDriver uiDriver;
 
     public Slider[] sliders;
@@ -28,9 +30,10 @@ public class GameLogic : MonoBehaviour {
 
     }
 
+
     public void UpdatePosition() {
-        if (!UIDriver.ignoreValueChanges) {
-            switch (uiDriver.state) {
+        if (!UIDriver.IgnoreChange()) {
+            switch (uiDriver.State()) {
                 //translate
                 case 0:
                     Vector3 position = new Vector3(sliders[0].value, sliders[1].value, sliders[2].value);
@@ -90,6 +93,16 @@ public class GameLogic : MonoBehaviour {
                 break;
             default:
                 break;
+        }
+    }
+
+    public GameObject GetCurrentSelection() {
+        return currentSelection;
+    }
+
+    public void ResetSelection() {
+        if (currentSelection) {
+            currentSelection.GetComponent<MP2ObjectBehavior>().ResetTransform();
         }
     }
 }

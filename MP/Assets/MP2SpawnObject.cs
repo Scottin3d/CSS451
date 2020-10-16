@@ -5,6 +5,9 @@ using UnityEngine;
 public class MP2SpawnObject : MonoBehaviour {
 
     [SerializeField]
+    GameObject masterTarget;
+
+    [SerializeField]
     GameLogic gameLogic;
 
     [SerializeField]
@@ -12,6 +15,10 @@ public class MP2SpawnObject : MonoBehaviour {
 
     [SerializeField]
     GameObject[] prefabList = new GameObject[3];
+
+    List<GameObject> spawnedPrefabs;
+
+    static int defaultXZ = 1, defaultY = 1;
 
     // Start is called before the first frame update
     void Start() {
@@ -22,23 +29,52 @@ public class MP2SpawnObject : MonoBehaviour {
         if (!uiDriver) {
             uiDriver = GameObject.Find("Canvas").GetComponent<UIDriver>();
         }
+
+        if (!masterTarget) {
+            masterTarget = GameObject.Find("GrandParent");
+        }
+
+        spawnedPrefabs = new List<GameObject>();
     }
 
     public void SpawnObject() {
-        // find spawn point
-        //spawnPosition = target.transform.position;
-        // instantiate prfab
+
+        //if null
+        //spawn away
+            // find spawn point
+            //spawnPosition = target.transform.position;
+            // instantiate prfab
         if (uiDriver.dropDown.value > 0) {
             // is selection null
             Vector3 spawnPosition;
-            if (gameLogic.currentSelection) {
-                spawnPosition = gameLogic.currentSelection.transform.position + new Vector3(0.1f, 0.1f, 0.1f);
+            GameObject parent;
+            Color color;
+            if (gameLogic.GetCurrentSelection()) {
+                parent = gameLogic.GetCurrentSelection();
+                int childCount = parent.GetComponent<MP2ObjectBehavior>().ChildCount();
+                parent.GetComponent<MP2ObjectBehavior>().AddChild();
+
+                spawnPosition = gameLogic.GetCurrentSelection().transform.position + new Vector3(childCount + 1, childCount + 1, childCount + 1);
+                color = parent.GetComponent<MeshRenderer>().material.color;
+
             } else {
-                spawnPosition = new Vector3(1f, 1f, 1f);
+                spawnPosition = new Vector3(defaultXZ, defaultY, defaultXZ);
+
+                defaultXZ++;
+                if (defaultXZ >= 10) {
+                    defaultXZ = 1;
+                    defaultY++;
+                }
+
+                parent = masterTarget;
+                color = Color.black;
             }
-         
-            GameObject obj = Instantiate(prefabList[uiDriver.dropDown.value - 1], spawnPosition, Quaternion.identity, gameLogic.currentSelection.transform);
+            Debug.Log(spawnPosition);
+            GameObject obj = Instantiate(prefabList[uiDriver.GetDropDownValue() - 1], spawnPosition, Quaternion.identity, parent.transform);
+            obj.GetComponent<MeshRenderer>().material.color = Color.white;
+            spawnedPrefabs.Add(obj);
         }
-        uiDriver.dropDown.value = 0;
+   
+        uiDriver.ResetDropdown();
     }
 }

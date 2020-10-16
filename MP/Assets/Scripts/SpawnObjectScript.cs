@@ -13,6 +13,10 @@ public class SpawnObjectScript : MonoBehaviour {
     [SerializeField]
     List<GameObject> spawnPrefabs;
 
+    private void Start() {
+        spawnPrefabs = new List<GameObject>();
+    }
+
     public void SpawnObject() {
         // find spawn point
         //spawnPosition = target.transform.position;
@@ -20,6 +24,7 @@ public class SpawnObjectScript : MonoBehaviour {
         spawnPosition = target.transform.position;
         if (dropDown.value > 0) { 
             GameObject obj = Instantiate(spawnPrefabs[dropDown.value - 1], spawnPosition, Quaternion.identity);
+            spawnPrefabs.Add(obj);
         }
         dropDown.value = 0;
     } 

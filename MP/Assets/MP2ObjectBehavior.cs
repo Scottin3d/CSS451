@@ -10,14 +10,18 @@ public class MP2ObjectBehavior : MonoBehaviour
     Color colorSelect = Color.yellow;
     float alpha = 0.25f;
     bool selected = false;
+    int childCount = 0;
 
     Material material;
+
+    Vector3 originalState;
 
     // Start is called before the first frame update
     void Start()
     {
         colorSelect.a = alpha;
         material = GetComponent<MeshRenderer>().material;
+        originalState = transform.position;
     }
 
     // Update is called once per frame
@@ -39,4 +43,21 @@ public class MP2ObjectBehavior : MonoBehaviour
     public void Selected(bool b) {
         selected = b;
     }
+
+    public void AddChild() {
+        childCount++;
+    }
+
+    public int ChildCount() {
+        return childCount;
+    }
+
+    public void ResetTransform() {
+        transform.position = originalState;
+        transform.eulerAngles = Vector3.zero;
+        transform.localScale = Vector3.one;
+    }
+
+
+
 }
