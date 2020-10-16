@@ -105,4 +105,17 @@ public class GameLogic : MonoBehaviour {
             currentSelection.GetComponent<MP2ObjectBehavior>().ResetTransform();
         }
     }
+
+    public void DeleteChildren() {
+        // if theres a selections
+        if (currentSelection) {
+            // if its not a default obj
+            if (currentSelection.name != "GrandParent" ||
+                currentSelection.name != "Parent" ||
+                currentSelection.name != "Child") {
+                currentSelection.GetComponent<MP2ObjectBehavior>().DestroyChildren();
+            }
+        }
+
+    }
 }

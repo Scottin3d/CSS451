@@ -52,7 +52,7 @@ public class MP2SpawnObject : MonoBehaviour {
             if (gameLogic.GetCurrentSelection()) {
                 parent = gameLogic.GetCurrentSelection();
                 int childCount = parent.GetComponent<MP2ObjectBehavior>().ChildCount();
-                parent.GetComponent<MP2ObjectBehavior>().AddChild();
+                
 
                 spawnPosition = gameLogic.GetCurrentSelection().transform.position + new Vector3(childCount + 1, childCount + 1, childCount + 1);
                 color = Color.white;
@@ -69,10 +69,10 @@ public class MP2SpawnObject : MonoBehaviour {
                 parent = masterTarget;
                 color = Color.black;
             }
-            Debug.Log(spawnPosition);
             GameObject obj = Instantiate(prefabList[uiDriver.GetDropDownValue() - 1], spawnPosition, Quaternion.identity, parent.transform);
             obj.GetComponent<MeshRenderer>().sharedMaterial.color = color;
             spawnedPrefabs.Add(obj);
+            parent.GetComponent<MP2ObjectBehavior>().AddChild(obj);
         }
    
         uiDriver.ResetDropdown();

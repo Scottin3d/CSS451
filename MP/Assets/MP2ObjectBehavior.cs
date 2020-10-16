@@ -16,12 +16,15 @@ public class MP2ObjectBehavior : MonoBehaviour
 
     Vector3 originalState;
 
+    List<GameObject> children;
+
     // Start is called before the first frame update
     void Start()
     {
         colorSelect.a = alpha;
         material = GetComponent<MeshRenderer>().material;
         originalState = transform.position;
+        children = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -44,12 +47,20 @@ public class MP2ObjectBehavior : MonoBehaviour
         selected = b;
     }
 
-    public void AddChild() {
+    public void AddChild(GameObject child) {
+        children.Add(child);
         childCount++;
     }
 
     public int ChildCount() {
         return childCount;
+    }
+
+    public void DestroyChildren() {
+        foreach (var child in children) {
+            Destroy(child);
+        }
+        childCount = 0;
     }
 
     public void ResetTransform() {
