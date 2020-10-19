@@ -69,6 +69,10 @@ public class MP2ObjectBehavior : MonoBehaviour
         transform.localScale = Vector3.one;
     }
 
+    public void SetColor(Color c) {
+        color = c;
+    }
+
 
 
 }

@@ -5,13 +5,7 @@ using UnityEngine;
 public class MP2SpawnObject : MonoBehaviour {
 
     [SerializeField]
-    GameObject masterTarget;
-
-    [SerializeField]
     GameLogic gameLogic;
-
-    [SerializeField]
-    UIDriver uiDriver;
 
     [SerializeField]
     GameObject[] prefabList = new GameObject[3];
@@ -26,28 +20,21 @@ public class MP2SpawnObject : MonoBehaviour {
             gameLogic = GameObject.Find("GameLogic").GetComponent<GameLogic>();
         }
 
-        if (!uiDriver) {
-            uiDriver = GameObject.Find("Canvas").GetComponent<UIDriver>();
-        }
-
-        if (!masterTarget) {
-            masterTarget = GameObject.Find("GrandParent");
-        }
-
         spawnedPrefabs = new List<GameObject>();
     }
 
-    public void SpawnObject() {
+    public void SpawnObject(int index) {
 
         //if null
         //spawn away
             // find spawn point
             //spawnPosition = target.transform.position;
             // instantiate prfab
-        if (uiDriver.dropDown.value > 0) {
+        if (index > 0) {
             // is selection null
             Vector3 spawnPosition;
             GameObject parent;
+            GameObject obj;
             Color color;
             if (gameLogic.GetCurrentSelection()) {
                 parent = gameLogic.GetCurrentSelection();
@@ -56,7 +43,9 @@ public class MP2SpawnObject : MonoBehaviour {
 
                 spawnPosition = gameLogic.GetCurrentSelection().transform.position + new Vector3(childCount + 1, childCount + 1, childCount + 1);
                 color = Color.white;
-
+                obj = Instantiate(prefabList[index - 1], spawnPosition, Quaternion.identity, parent.transform);
+                spawnedPrefabs.Add(obj);
+                parent.GetComponent<MP2ObjectBehavior>().AddChild(obj);
             } else {
                 spawnPosition = new Vector3(defaultXZ, defaultY, defaultXZ);
 
@@ -66,15 +55,12 @@ public class MP2SpawnObject : MonoBehaviour {
                     defaultY++;
                 }
 
-                parent = masterTarget;
+                 obj = Instantiate(prefabList[index - 1], spawnPosition, Quaternion.identity);
+
                 color = Color.black;
             }
-            GameObject obj = Instantiate(prefabList[uiDriver.GetDropDownValue() - 1], spawnPosition, Quaternion.identity, parent.transform);
-            obj.GetComponent<MeshRenderer>().sharedMaterial.color = color;
-            spawnedPrefabs.Add(obj);
-            parent.GetComponent<MP2ObjectBehavior>().AddChild(obj);
+            // set color
+            obj.GetComponent<MP2ObjectBehavior>().SetColor(color);
         }
-   
-        uiDriver.ResetDropdown();
     }
 }
