@@ -11,9 +11,17 @@ public class aimLineScript : MonoBehaviour
     Transform p2;
 
     [SerializeField]
-    float lineWidth = 1;
+    float lineWidth = 0.1f;
+
+    [SerializeField]
+    GameObject linePrefab;
+
+    [SerializeField]
+    Color color = Color.black;
+
 
     private void Start() {
+        GetComponent<MeshRenderer>().material.color = color;
     }
 
     private void Update() {

@@ -8,49 +8,19 @@ using UnityEngine.UI;
 
 public class endPointScript : MonoBehaviour
 {
-    private Vector3 mOffset;
-    private float mZCoord;
-    Vector3 mousePos;
+    [Header("Transform Lock")]
+    public bool lockX;
+    public bool lockY;
+    public bool lockZ;
+
 
     [SerializeField]
-    GameObject plane;
+    Color color = Color.red;
 
-    GameObject target;
-    bool selected = false;
-
-    void Update() {
-        //if click,
-        if (Input.GetMouseButton(0)) {
-            click();
-        }
-
-        if (Input.GetMouseButtonUp(0)) {
-            selected = false;
-        }
+    private void Start() {
+        GetComponent<MeshRenderer>().material.color = color;
     }
 
-    void click() {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
 
-        if (!selected) {
-            if (Physics.Raycast(ray, out hit)) {
-                // plane? move object
-                if (hit.collider.CompareTag("point")) {
-                    target = hit.collider.gameObject;
-                    Debug.Log(target);
-                    selected = true;
-                }
-            }
-        } else {
-            if (Physics.Raycast(ray, out hit)){
-                if (hit.collider.gameObject == plane) {
-                    target.transform.position = hit.point;
-                }
-            }
-        }
-
-
-    }
 
 }

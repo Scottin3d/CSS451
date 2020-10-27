@@ -6,6 +6,9 @@ TagManager:
   tags:
   - point
   - wall
+  - UI
+  - sliderHandle
+  - floor
   layers:
   - Default
   - TransparentFX
