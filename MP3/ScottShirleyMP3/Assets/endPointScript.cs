@@ -9,9 +9,8 @@ using UnityEngine.UI;
 public class endPointScript : MonoBehaviour
 {
     [Header("Transform Lock")]
-    public bool lockX;
-    public bool lockY;
-    public bool lockZ;
+    [SerializeField]
+    bool[] lockAxis = new bool[3];
 
 
     [SerializeField]
@@ -21,6 +20,15 @@ public class endPointScript : MonoBehaviour
         GetComponent<MeshRenderer>().material.color = color;
     }
 
+    public bool LockX() {
+        return lockAxis[0];
+    }
+    public bool LockY() { 
+        return lockAxis[1];
+    }
+    public bool LockZ() {
+        return lockAxis[2];
+    }
 
 
 }

@@ -10,15 +10,11 @@ public class aimLineScript : MonoBehaviour
     [SerializeField]
     Transform p2;
 
-    [SerializeField]
-    float lineWidth = 0.1f;
 
-    [SerializeField]
-    GameObject linePrefab;
+    private float lineWidth = 0.1f;
 
     [SerializeField]
     Color color = Color.black;
-
 
     private void Start() {
         GetComponent<MeshRenderer>().material.color = color;
@@ -32,5 +28,10 @@ public class aimLineScript : MonoBehaviour
         transform.localScale = new Vector3(lineWidth, length * 0.5f, lineWidth);
 
         transform.localRotation = Quaternion.FromToRotation(Vector3.up, V);
+    }
+
+    public Quaternion TravelDirection() {
+        Vector3 V = p2.localPosition - p1.localPosition;
+        return Quaternion.FromToRotation(Vector3.up, V);
     }
 }

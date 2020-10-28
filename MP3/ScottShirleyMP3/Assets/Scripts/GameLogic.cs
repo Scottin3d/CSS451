@@ -8,14 +8,16 @@ using UnityEngine.UI;
 public class GameLogic : MonoBehaviour {
 
     [SerializeField]
-    public GameObject currentSelection;
+    LayerMask ignoredLayer;
 
-    public UIDriver uiDriver;
+    [SerializeField]
+    public GameObject currentSelection;
 
     public Slider[] sliders;
 
     bool selected = false;
     GameObject target;
+
     private void Start() {
         //currentSelection = null;
     }
@@ -37,13 +39,17 @@ public class GameLogic : MonoBehaviour {
         RaycastHit hit;
 
         if (!selected) {
-            if (Physics.Raycast(ray, out hit)) {
-                selected = true;
-                target = hit.collider.gameObject;
-                Debug.Log(target.name);
+
+            if (Physics.Raycast(ray, out hit, 1000f, ~ignoredLayer)) {
+                if (!EventSystem.current.IsPointerOverGameObject()) {
+                    selected = true;
+                    target = hit.collider.gameObject;
+                    // debug
+                    Debug.Log(target.name);
+                }
             }
         } else {
-            if (Physics.Raycast(ray, out hit)) {
+            if (Physics.Raycast(ray, out hit, 1000f, ~ignoredLayer)) {
                 string tag = hit.collider.tag;
                 switch (tag) {
                     case "wall":
@@ -66,24 +72,5 @@ public class GameLogic : MonoBehaviour {
 
     public GameObject GetCurrentSelection() {
         return currentSelection;
-    }
-
-    public void ResetSelection() {
-        if (currentSelection) {
-            currentSelection.GetComponent<MP2ObjectBehavior>().ResetTransform();
-        }
-    }
-
-    public void DeleteChildren() {
-        // if theres a selections
-        if (currentSelection) {
-            // if its not a default obj
-            if (currentSelection.name != "GrandParent" ||
-                currentSelection.name != "Parent" ||
-                currentSelection.name != "Child") {
-                currentSelection.GetComponent<MP2ObjectBehavior>().DestroyChildren();
-            }
-        }
-
     }
 }

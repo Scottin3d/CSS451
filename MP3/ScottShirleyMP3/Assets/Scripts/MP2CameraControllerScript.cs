@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 public class MP2CameraControllerScript : MonoBehaviour
@@ -26,10 +27,12 @@ public class MP2CameraControllerScript : MonoBehaviour
         if (!cameraControlObject) {
             cameraControlObject = GameObject.Find("CameraControlObject");
         }
-
         if (!mainCamera) {
             mainCamera = Camera.main;
         }
+        Debug.Assert(cameraRotstion != null);
+        Debug.Assert(cameraFOV != null);
+        Debug.Assert(cameraViewAngle != null);
     }
 
     public void ResetTransform() {
