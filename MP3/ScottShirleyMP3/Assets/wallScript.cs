@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class wallScript : MonoBehaviour
 {
-    [SerializeField]
-    GameObject point;
-
-    endPointScript eps;
+    public GameObject point;
+    private endPointScript eps;
 
     private void Start() {
         /* LineEndPt: This is a scaled cylinder S(2, 0.2, 2). 

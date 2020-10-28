@@ -8,40 +8,53 @@ public class MP2CameraControllerScript : MonoBehaviour
 {
     [SerializeField]
     GameObject cameraControlObject;
-    Camera mainCamera;
+    private Camera mainCamera;
 
     [SerializeField]
-    Slider cameraRotstion;
-    float defaultRot = 0;
+    Slider cameraRotation;
+    private const float DEFAULT_ROT = 0;
 
     [SerializeField]
     Slider cameraFOV;
-    float defaultFOV = 60;
+    private const float DEFUALT_FOV = 60;
 
     [SerializeField]
     Slider cameraViewAngle;
-    float defaultAng = 0;
+    private const float DEFAULT_VA = 0;
 
 
     private void Start() {
+        InitializeComponents();
+        Debug.Assert(cameraRotation != null);
+        Debug.Assert(cameraFOV != null);
+        Debug.Assert(cameraViewAngle != null);
+    }
+
+    void InitializeComponents() {
         if (!cameraControlObject) {
             cameraControlObject = GameObject.Find("CameraControlObject");
         }
         if (!mainCamera) {
             mainCamera = Camera.main;
         }
-        Debug.Assert(cameraRotstion != null);
-        Debug.Assert(cameraFOV != null);
-        Debug.Assert(cameraViewAngle != null);
+        if (!cameraRotation) {
+            cameraRotation = GameObject.Find("CameraRotation").GetComponentInChildren<Slider>();
+        }
+        if (!cameraFOV) {
+            cameraFOV = GameObject.Find("CameraFOV").GetComponentInChildren<Slider>();
+        }
+        if (!cameraViewAngle) {
+            cameraViewAngle = GameObject.Find("CameraViewAngle").GetComponentInChildren<Slider>();
+        }
     }
 
     public void ResetTransform() {
         cameraControlObject.transform.position = Vector3.zero;
-        cameraRotstion.value = defaultRot;
+        cameraRotation.value = DEFAULT_ROT;
         cameraControlObject.transform.eulerAngles = Vector3.zero;
-        cameraFOV.value = defaultFOV;
-        mainCamera.fieldOfView = defaultFOV;
-        cameraViewAngle.value = defaultAng;
+        cameraFOV.value = DEFUALT_FOV;
+        mainCamera.fieldOfView = DEFUALT_FOV;
+        cameraViewAngle.value = DEFAULT_VA;
     }
 
     public void SetRotation(float rot) { 

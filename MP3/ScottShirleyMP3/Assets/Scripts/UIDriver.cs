@@ -8,11 +8,7 @@ using UnityEngine.UI;
 public partial class UIDriver : MonoBehaviour {
 
     private static bool ignoreValueChanges = false;
-    
-    int state = 0;
-
-    [SerializeField]
-    public Dropdown dropDown;
+    public int state = 0;
 
     [SerializeField]
     GameLogic gameLogic;
@@ -21,17 +17,12 @@ public partial class UIDriver : MonoBehaviour {
     Text objectSelected;
 
     // plane xform controller
-    [SerializeField]
-    Text[] SliderValueText = new Text[3];
-    [SerializeField]
-    Slider[] xformSliders = new Slider[3];
+    public Text[] SliderValueText = new Text[3];
+    public Slider[] xformSliders = new Slider[3];
 
     // object prefab
-    [SerializeField]
-    Text[] travellingBallsText = new Text[3];
-    [SerializeField]
-    Slider[] travellingBallsSliders = new Slider[3];
-
+    public Text[] travellingBallsText = new Text[3];
+    public Slider[] travellingBallsSliders = new Slider[3];
 
     const float TMAX = 20f;
     const float TMIN = -20f;
@@ -41,17 +32,23 @@ public partial class UIDriver : MonoBehaviour {
     const float RMIN = -180f;
 
     //toggles
-    [SerializeField]
-    Toggle translateToggle;
-    [SerializeField]
-    Toggle scaleToggle;
-    [SerializeField]
-    Toggle rotationToggle;
-
+    public Toggle translateToggle;
+    public Toggle scaleToggle;
+    public Toggle rotationToggle;
 
     private void Start() {
+        InitializeComponents();
         InitializeSliders();
         InitializeToggles();
+    }
+
+    void InitializeComponents() {
+        if (!gameLogic) {
+            gameLogic = GameObject.Find("theWorld").GetComponent<GameLogic>();
+        }
+        if (!objectSelected) {
+            objectSelected = GameObject.Find("SelectionBackground").transform.GetChild(1).GetComponent<Text>();
+        }
     }
     private void InitializeSliders() {
         ToggleValues(true);
@@ -117,45 +114,35 @@ public partial class UIDriver : MonoBehaviour {
             xformSliders[2].value = 0;
         }else if (translateToggle.isOn) {
             //clamp values
-            xformSliders[0].minValue = TMIN;
-            xformSliders[0].maxValue = TMAX;
+            xformSliders[0].minValue = xformSliders[1].minValue = xformSliders[2].minValue = TMIN;
+            xformSliders[0].maxValue = xformSliders[1].maxValue = xformSliders[2].maxValue = TMAX;
+            xformSliders[0].wholeNumbers = xformSliders[1].wholeNumbers = xformSliders[2].wholeNumbers = false;
+
             //set value
             xformSliders[0].value = gameLogic.GetCurrentSelection().transform.position.x;
             //set text
             SliderValueText[0].text = xformSliders[0].value.ToString();
-
-            //clamp values
-            xformSliders[1].minValue = TMIN;
-            xformSliders[1].maxValue = TMAX;
             //set value
             xformSliders[1].value = gameLogic.GetCurrentSelection().transform.position.y;
             //set text
             SliderValueText[1].text = xformSliders[1].value.ToString();
-
-            //clamp values
-            xformSliders[2].minValue = TMIN;
-            xformSliders[2].maxValue = TMAX;
             //set value
             xformSliders[2].value = gameLogic.GetCurrentSelection().transform.position.z;
             //set text
             SliderValueText[2].text = xformSliders[2].value.ToString();
         } else if (scaleToggle.isOn) {
-            xformSliders[0].minValue = SMIN;
-            xformSliders[0].maxValue = SMAX;
+            xformSliders[0].minValue = xformSliders[1].minValue = xformSliders[2].minValue = SMIN;
+            xformSliders[0].maxValue = xformSliders[1].maxValue = xformSliders[2].maxValue = SMAX;
+            xformSliders[0].wholeNumbers = xformSliders[1].wholeNumbers = xformSliders[2].wholeNumbers = false;
+
             //set value
             xformSliders[0].value = gameLogic.GetCurrentSelection().transform.localScale.x;
             //set text
             SliderValueText[0].text = xformSliders[0].value.ToString();
-
-            xformSliders[1].minValue = SMIN;
-            xformSliders[1].maxValue = SMAX;
             //set value
             xformSliders[1].value = gameLogic.GetCurrentSelection().transform.localScale.y;
             //set text
             SliderValueText[1].text = xformSliders[1].value.ToString();
-
-            xformSliders[2].minValue = SMIN;
-            xformSliders[2].maxValue = SMAX;
             //set value
             xformSliders[2].value = gameLogic.GetCurrentSelection().transform.localScale.z;
             //set text
@@ -164,24 +151,25 @@ public partial class UIDriver : MonoBehaviour {
         } else if (rotationToggle.isOn) {
             xformSliders[0].minValue = xformSliders[1].minValue = xformSliders[2].minValue = RMIN;
             xformSliders[0].maxValue = xformSliders[1].maxValue = xformSliders[2].maxValue = RMAX;
-            //xSlider.minValue = RMIN;
-            //xSlider.maxValue = RMAX;
+            xformSliders[0].wholeNumbers = xformSliders[1].wholeNumbers = xformSliders[2].wholeNumbers = true;
+
             //set value
-            xformSliders[0].value = gameLogic.GetCurrentSelection().transform.rotation.x;
+            
+            float rotX = gameLogic.GetCurrentSelection().transform.rotation.eulerAngles.x;
+            rotX = (rotX > 180) ? rotX - 360 : rotX;
+            xformSliders[0].value = rotX;
             //set text
             SliderValueText[0].text = xformSliders[0].value.ToString();
-
-            //ySlider.minValue = RMIN;
-            //ySlider.maxValue = RMAX;
             //set value
-            xformSliders[1].value = gameLogic.GetCurrentSelection().transform.rotation.y;
+            float rotY = gameLogic.GetCurrentSelection().transform.rotation.eulerAngles.y;
+            rotY = (rotY > 180) ? rotY - 360 : rotY;
+            xformSliders[1].value = rotY;
             //set text
             SliderValueText[1].text = xformSliders[1].value.ToString();
-
-            //zSlider.minValue = RMIN;
-            //zSlider.maxValue = RMAX;
             //set value
-            xformSliders[2].value = gameLogic.GetCurrentSelection().transform.rotation.z;
+            float rotZ = gameLogic.GetCurrentSelection().transform.rotation.eulerAngles.z;
+            rotZ = (rotZ > 180) ? rotZ - 360 : rotZ;
+            xformSliders[2].value = rotZ;
             //set text
             SliderValueText[2].text = xformSliders[2].value.ToString();
         }
@@ -195,12 +183,5 @@ public partial class UIDriver : MonoBehaviour {
 
     public static bool IgnoreChange() {
         return ignoreValueChanges;
-    }
-
-    public int GetDropDownValue() {
-        return dropDown.value;
-    }
-    public void ResetDropdown() {
-        dropDown.value = 0;
     }
 }

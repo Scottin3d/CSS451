@@ -23,17 +23,26 @@ public class prefabSpawnScript : MonoBehaviour {
 
     [SerializeField]
     Color color = Color.red;
-
-    public List<GameObject> spawnedPrefabs;
     float previousTime = 0;
 
     // Start is called before the first frame update
     void Start() {
-        //Debug.Assert(lineSpawnPrefab != null);
-        //Debug.Assert(spawnPosition != null);
-        //Debug.Assert(targetPosition != null);
+        InitializeComponents();
+        Debug.Assert(lineSpawnPrefab != null);
+        Debug.Assert(spawnPosition != null);
+        Debug.Assert(targetPosition != null);
+    }
 
-        spawnedPrefabs = new List<GameObject>();
+    void InitializeComponents() {
+        if (!lineSpawnPrefab) {
+            lineSpawnPrefab = Resources.Load<GameObject>("Prefabs/sphere");
+        }
+        if (!spawnPosition) {
+            spawnPosition = GameObject.Find("westWallEndPt").transform;
+        }
+        if (!targetPosition) {
+            targetPosition = GameObject.Find("eastWallEndPt").transform;
+        }
     }
 
     private void Update() {
@@ -65,13 +74,13 @@ public class prefabSpawnScript : MonoBehaviour {
 
         Vector3 pos = spawnPosition.position;
         Vector3 V = spawnPosition.position - targetPosition.position;
-        Quaternion rot = Quaternion.FromToRotation(Vector3.up, V);
+        V.Normalize();
+        Quaternion rot = Quaternion.FromToRotation(Vector3.up, -V);
 
         GameObject spawn = Instantiate(lineSpawnPrefab);
-        spawn.GetComponent<spawnedObjectScript>().Initialize(objSpeed, objLifeCycle);
+        spawn.GetComponent<spawnedObjectScript>().Initialize(objSpeed, objLifeCycle, spawnPosition.gameObject, targetPosition.gameObject);
         spawn.transform.position = pos;
         spawn.transform.rotation = rot;
         spawn.transform.localScale = new Vector3(1f, 1f, 1f);
-        spawnedPrefabs.Add(spawn);
     }
 }

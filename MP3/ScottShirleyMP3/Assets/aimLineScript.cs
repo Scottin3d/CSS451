@@ -17,7 +17,17 @@ public class aimLineScript : MonoBehaviour
     Color color = Color.black;
 
     private void Start() {
+        InitializeComponents();
+    }
+
+    void InitializeComponents() {
         GetComponent<MeshRenderer>().material.color = color;
+        if (!p1) {
+            p1 = GameObject.Find("westWallEndPt").transform;
+        }
+        if (!p2) {
+            p2 = GameObject.Find("eastWallEndPt").transform;
+        }
     }
 
     private void Update() {
