@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class spawnedObjectScript : MonoBehaviour
 {
-
+    bool destroyLeaveScene = false;
     public float moveSpeed, lifeCycle, spawnTime;
 
     public void Initialize(float _speed, float _lifeCyle) {
@@ -21,7 +21,23 @@ public class spawnedObjectScript : MonoBehaviour
             // Destroy(this.gameObject);
         }
 
-    } 
+    }
+
+    void OnCollisionEneter
+
+        if (other.CompareTag("Wall")) {
+            if (destroyLeaveScene) {
+                Destroy(this.gameObject);
+            }
+            Vector3 relectionVector = ReflectionOverPlane(other);
+        }
+    }
+
+    public Vector3 ReflectionOverPlane(Vector3 point, Plane plane) {
+        float H = Vector3.Dot(transform.up, );
+        Vector3 N = transform.TransformDirection(plane.normal);
+        return point - 2 * N * Vector3.Dot(point, N) / Vector3.Dot(N, N);
+    }
 
 
 }
