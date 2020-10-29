@@ -681,8 +681,8 @@ GameObject:
   - component: {fileID: 503764048}
   - component: {fileID: 503764047}
   m_Layer: 0
-  m_Name: Sphere
-  m_TagString: Untagged
+  m_Name: thunderDome
+  m_TagString: thunderDome
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1155,7 +1155,7 @@ Transform:
   m_GameObject: {fileID: 1042549541}
   m_LocalRotation: {x: -0.4654883, y: 0.4929621, z: 0.35718173, w: 0.6424408}
   m_LocalPosition: {x: 0.1, y: 5.07, z: -0.38}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children:
   - {fileID: 503764046}
   m_Father: {fileID: 1156943220}
@@ -1278,7 +1278,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1156943221}
     - target: {fileID: 1629430848189356421, guid: ec98396000eb9d2449f1940e8d04b950,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1703,7 +1703,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1156943221}
     - target: {fileID: 2909726497999418064, guid: ec98396000eb9d2449f1940e8d04b950,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1853,7 +1853,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1156943221}
     - target: {fileID: 6926916771731863610, guid: ec98396000eb9d2449f1940e8d04b950,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1984,6 +1984,7 @@ MonoBehaviour:
   spawnPosition: {fileID: 198430353}
   targetPosition: {fileID: 1645617185}
   color: {r: 0, g: 1, b: 0.17138863, a: 1}
+  Plane: {fileID: 1042549541}
 --- !u!114 &1156943222
 MonoBehaviour:
   m_ObjectHideFlags: 0

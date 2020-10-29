@@ -109,10 +109,8 @@ public partial class UIDriver : MonoBehaviour {
         //assign right min/max
         //update label
         if (gameLogic.GetCurrentSelection() == null) {
-            xformSliders[0].value = 0;
-            xformSliders[1].value = 0;
-            xformSliders[2].value = 0;
-        }else if (translateToggle.isOn) {
+            xformSliders[0].value = xformSliders[1].value = xformSliders[2].value = 0;
+        } else if (translateToggle.isOn) {
             //clamp values
             xformSliders[0].minValue = xformSliders[1].minValue = xformSliders[2].minValue = TMIN;
             xformSliders[0].maxValue = xformSliders[1].maxValue = xformSliders[2].maxValue = TMAX;

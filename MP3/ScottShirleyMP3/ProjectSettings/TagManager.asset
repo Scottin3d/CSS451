@@ -10,6 +10,8 @@ TagManager:
   - sliderHandle
   - floor
   - barrier
+  - shadow
+  - thunderDome
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - PostProcessing
   - points
   - balls
-  - 
+  - shadow
   - 
   - 
   - 

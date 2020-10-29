@@ -25,6 +25,8 @@ public class prefabSpawnScript : MonoBehaviour {
     Color color = Color.red;
     float previousTime = 0;
 
+    public GameObject Plane;
+
     // Start is called before the first frame update
     void Start() {
         InitializeComponents();
@@ -47,14 +49,12 @@ public class prefabSpawnScript : MonoBehaviour {
 
     private void Update() {
         previousTime += Time.deltaTime;
-
         if (previousTime >= spawnInterval) {
             SpawnObject();
             Debug.Log("Reset Time");
             previousTime = 0;
         }
     }
-
 
     public void SetInterval(float _interval) {
         spawnInterval = _interval;
@@ -78,7 +78,7 @@ public class prefabSpawnScript : MonoBehaviour {
         Quaternion rot = Quaternion.FromToRotation(Vector3.up, -V);
 
         GameObject spawn = Instantiate(lineSpawnPrefab);
-        spawn.GetComponent<spawnedObjectScript>().Initialize(objSpeed, objLifeCycle, spawnPosition.gameObject, targetPosition.gameObject);
+        spawn.GetComponent<spawnedObjectScript>().Initialize(objSpeed, objLifeCycle, spawnPosition.gameObject, targetPosition.gameObject, Plane);
         spawn.transform.position = pos;
         spawn.transform.rotation = rot;
         spawn.transform.localScale = new Vector3(1f, 1f, 1f);
