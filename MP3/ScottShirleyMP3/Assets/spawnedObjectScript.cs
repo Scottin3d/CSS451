@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
+using Utils;
 
 public class spawnedObjectScript : MonoBehaviour
 {
@@ -19,18 +20,19 @@ public class spawnedObjectScript : MonoBehaviour
 
     GameObject p1;
     GameObject p2;
-    GameObject plane;
+    public GameObject plane;
+
     public GameObject Projection;
     public bool activeProjection = false;
-
-    public string name;
-    public float dot;
-    public float magnitude;
+    public float radius;
+    public Vector3 intersect;
+    public float distance;
 
 
     private void Awake() {
         Projection = Instantiate(Resources.Load("Prefabs/projection") as GameObject, this.transform);
         Projection.GetComponent<MeshRenderer>().enabled = activeProjection;
+        
     }
     public void Initialize(float _speed, float _lifeCyle, GameObject _P1, GameObject _P2, GameObject _plane) {
         //transform.rotation = Quaternion.FromToRotation(Vector3.up, transform.up);
@@ -40,11 +42,10 @@ public class spawnedObjectScript : MonoBehaviour
         p1 = _P1;
         p2 = _P2;
         plane = _plane;
+        radius = GameObject.Find("thunderDome").transform.localScale.x / 2f;
     }
 
     private void Update() {
-        dot = Vector3.Dot(transform.position, plane.transform.position);
-        magnitude = transform.up.magnitude;
         UpdateMovement();
         IsDead();
         ProjectShadowBlob();
@@ -79,23 +80,31 @@ public class spawnedObjectScript : MonoBehaviour
 
     // projects shadow blob onto flat sphere on plane
     private void ProjectShadowBlob() {
-        Vector3 planeNormal = plane.transform.up;
-        Projection.transform.rotation = Quaternion.FromToRotation(Vector3.up, planeNormal);
+        Debug.DrawLine(transform.localPosition, plane.transform.position, Color.green);
 
-        Ray ray = new Ray(transform.position, -planeNormal);
-        RaycastHit hit;
+        Vector3 lineDir = transform.up;
+        Vector3 linePt = transform.position;
+        Vector3 planeNormal = -plane.transform.up;
+        Vector3 planePt = plane.transform.position;
 
-        if (Physics.Raycast(ray, out hit, 1000f, 11)) {
+        if (Utils.vectorUtils.ScottCast(out intersect, linePt, -planeNormal, planeNormal, planePt)) {
+            Debug.DrawLine(intersect, linePt, Color.black);
 
-            Debug.DrawLine(transform.position, hit.point, Color.red);
-            Projection.transform.position = hit.point;
-            name = hit.transform.name;
-            if (hit.collider.CompareTag("thunderDome")) {
-                activeProjection = true;
+            distance = Utils.vectorUtils.Distance(intersect, planePt);
+            if (distance >= radius) {
+                Projection.GetComponent<MeshRenderer>().enabled = false;
             } else {
-                activeProjection = false;
+                Projection.GetComponent<MeshRenderer>().enabled = true;
             }
+
+            Projection.transform.rotation = Quaternion.FromToRotation(Vector3.up, planeNormal);
+            Vector3 pos = intersect;
+            pos.y += 0.1f;
+            Projection.transform.position = pos;
         }
-        Projection.GetComponent<MeshRenderer>().enabled = activeProjection;
+
+        if (Utils.vectorUtils.ScottCast(out intersect, linePt, lineDir, planeNormal, planePt)) {
+            Debug.DrawLine(intersect, linePt, Color.blue);
+        }
     }
 }
