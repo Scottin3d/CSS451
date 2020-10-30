@@ -20,19 +20,37 @@ public class spawnedObjectScript : MonoBehaviour
 
     GameObject p1;
     GameObject p2;
-    public GameObject plane;
 
+    GameObject plane;
+
+    Vector3 ballToPlanePoint;
+
+    [Header("Shadow Object Values")]
+    GameObject shadowTarget;
     public GameObject Projection;
     public bool activeProjection = false;
     public float radius;
-    public Vector3 intersect;
+    public Vector3 shadowIntersectPoint;
     public float distance;
 
+    [Header("Refections Values")]
+    public float distanceToReflectionPoint;
+    public float distancePlaneToReflectionPoint;
+    public float reflectionPlaneBias;
+    float reflectionOffsetBias;
+    Vector3 barrierReflectionPoint;
+    public float planeCullCheckDot;
+    bool reflectBall = false;
 
     private void Awake() {
+        plane = GameObject.Find("TheBarrier");
         Projection = Instantiate(Resources.Load("Prefabs/projection") as GameObject, this.transform);
         Projection.GetComponent<MeshRenderer>().enabled = activeProjection;
-        
+        shadowTarget = GameObject.Find("thunderDome");
+        radius = shadowTarget.transform.localScale.x / 2f;
+        reflectionOffsetBias = transform.localScale.x / 2f;
+
+        reflectionPlaneBias = plane.transform.localScale.x * 5f;
     }
     public void Initialize(float _speed, float _lifeCyle, GameObject _P1, GameObject _P2, GameObject _plane) {
         //transform.rotation = Quaternion.FromToRotation(Vector3.up, transform.up);
@@ -42,31 +60,44 @@ public class spawnedObjectScript : MonoBehaviour
         p1 = _P1;
         p2 = _P2;
         plane = _plane;
-        radius = GameObject.Find("thunderDome").transform.localScale.x / 2f;
     }
 
     private void Update() {
         UpdateMovement();
         IsDead();
-        ProjectShadowBlob();
+        Projections();
     }
 
-
-    // for reflection
-    private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("barrier")) {
-            //R = 2 * dot(-mDir, n) * n - (-mDir);
-            mdir = transform.up;
-            normal = other.transform.up;
-            normal.Normalize();
-            Vr = 2 * Vector3.Dot(-mdir, normal) * normal - (-mdir);
-            transform.rotation = Quaternion.FromToRotation(Vector3.up, Vr);
-        }
+    private void Reflect() {
+        //R = 2 * dot(-mDir, n) * n - (-mDir);
+        mdir = transform.up;
+        normal = plane.transform.up;
+        normal.Normalize();
+        Vr = 2 * Vector3.Dot(-mdir, normal) * normal - (-mdir);
+        transform.rotation = Quaternion.FromToRotation(Vector3.up, Vr);
     }
 
     // updates movement
     private void UpdateMovement() {
+        // movement
         transform.position += transform.up * Time.deltaTime * moveSpeed;
+        // intersect?
+        distanceToReflectionPoint = Utils.vectorUtils.Distance(transform.position, barrierReflectionPoint);
+        // culled face? dot > 0
+        Vector3 o = transform.up;
+        o.Normalize();
+        Vector3 n = -plane.transform.up;
+        n.Normalize();
+        planeCullCheckDot = Vector3.Dot(o,n);
+        // within barrier distance(intersect, planeorigin)
+        distancePlaneToReflectionPoint = Utils.vectorUtils.Distance(barrierReflectionPoint, plane.transform.position);
+
+        //&& distancePlaneToReflectionPoint <= reflectionPlaneBias
+        if (distanceToReflectionPoint - reflectionOffsetBias <= 0 
+         && distancePlaneToReflectionPoint <= reflectionPlaneBias
+         && planeCullCheckDot >= 0) {
+            Reflect();
+        }
     }
 
     // destroys after lifecycle
@@ -79,32 +110,50 @@ public class spawnedObjectScript : MonoBehaviour
     }
 
     // projects shadow blob onto flat sphere on plane
-    private void ProjectShadowBlob() {
+    private void Projections() {
         Debug.DrawLine(transform.localPosition, plane.transform.position, Color.green);
+        radius = shadowTarget.transform.localScale.x / 2f;
 
         Vector3 lineDir = transform.up;
         Vector3 linePt = transform.position;
         Vector3 planeNormal = -plane.transform.up;
         Vector3 planePt = plane.transform.position;
 
-        if (Utils.vectorUtils.ScottCast(out intersect, linePt, -planeNormal, planeNormal, planePt)) {
-            Debug.DrawLine(intersect, linePt, Color.black);
+        // shadowblob
+        
+        if (Utils.vectorUtils.ScottCast(out shadowIntersectPoint, linePt, -planeNormal, planeNormal, planePt)) {
+            Debug.DrawLine(shadowIntersectPoint, linePt, Color.black);
 
-            distance = Utils.vectorUtils.Distance(intersect, planePt);
+            // culled face? dot > 0
+            Vector3 o = lineDir;
+            o.Normalize();
+            Vector3 n = planeNormal;
+            n.Normalize();
+            planeCullCheckDot = Vector3.Dot(o, n);
+
+            distance = Utils.vectorUtils.Distance(shadowIntersectPoint, planePt);
             if (distance >= radius) {
                 Projection.GetComponent<MeshRenderer>().enabled = false;
             } else {
-                Projection.GetComponent<MeshRenderer>().enabled = true;
+                if (planeCullCheckDot >= 0) { 
+                    Projection.GetComponent<MeshRenderer>().enabled = true;
+                }
             }
 
             Projection.transform.rotation = Quaternion.FromToRotation(Vector3.up, planeNormal);
-            Vector3 pos = intersect;
+            Vector3 pos = shadowIntersectPoint;
             pos.y += 0.1f;
             Projection.transform.position = pos;
         }
 
-        if (Utils.vectorUtils.ScottCast(out intersect, linePt, lineDir, planeNormal, planePt)) {
-            Debug.DrawLine(intersect, linePt, Color.blue);
+
+        if (Utils.vectorUtils.ScottCast(out ballToPlanePoint, linePt, lineDir, planeNormal, planePt)) {
+            Debug.DrawLine(ballToPlanePoint, linePt, Color.blue);
+        }
+
+        // forward
+        if (Utils.vectorUtils.ScottCast(out barrierReflectionPoint, linePt, transform.up, planeNormal, planePt)) {
+            Debug.DrawLine(barrierReflectionPoint, linePt, Color.magenta);
         }
     }
 }

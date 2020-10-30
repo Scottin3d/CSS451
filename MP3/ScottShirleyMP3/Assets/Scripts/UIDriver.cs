@@ -6,9 +6,19 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public partial class UIDriver : MonoBehaviour {
+    bool gameIsPaused = false;
+    bool showDebugMode = false;
+
+    [SerializeField]
+    GameObject quitScreen;
+    bool quitScreenActive = false;
 
     private static bool ignoreValueChanges = false;
     public int state = 0;
+
+    [SerializeField]
+    Image controlsBackground;
+    Color controlsBackgroundColor;
 
     [SerializeField]
     GameLogic gameLogic;
@@ -37,9 +47,11 @@ public partial class UIDriver : MonoBehaviour {
     public Toggle rotationToggle;
 
     private void Start() {
+        controlsBackgroundColor = controlsBackground.color;
         InitializeComponents();
         InitializeSliders();
         InitializeToggles();
+        
     }
 
     void InitializeComponents() {
@@ -49,7 +61,16 @@ public partial class UIDriver : MonoBehaviour {
         if (!objectSelected) {
             objectSelected = GameObject.Find("SelectionBackground").transform.GetChild(1).GetComponent<Text>();
         }
+        if (!controlsBackground) {
+            controlsBackground = GameObject.Find("ControlsPanel").GetComponent<Image>();
+        }
+        if (!quitScreen) {
+            quitScreen = GameObject.Find("QuitScreen");
+        }
+
+        quitScreen.SetActive(quitScreenActive);
     }
+
     private void InitializeSliders() {
         ToggleValues(true);
     }
@@ -64,8 +85,42 @@ public partial class UIDriver : MonoBehaviour {
     private void Update() {
         UpdateSelection();
         UpdateSliderText();
-    }
+        //GameTime();
+        // T
+        if (Input.GetKeyDown(KeyCode.T)) {
+            translateToggle.isOn = true;
+            ToggleValues(true);
+        }
 
+        // S
+        if (Input.GetKeyDown(KeyCode.T)) {
+            scaleToggle.isOn = true;
+            ToggleValues(true);
+        }
+
+        // R
+        if (Input.GetKeyDown(KeyCode.T)) {
+            rotationToggle.isOn = true;
+            ToggleValues(true);
+        }
+
+        // P: Pause Time
+        if (Input.GetKeyDown(KeyCode.P)) {
+            gameIsPaused = !gameIsPaused;
+        }
+
+        // F1: Toggle Debug Lines
+        if (Input.GetKeyDown(KeyCode.F1)) {
+            Debug.Log("Disable/Enable debug mode");
+        }
+
+        // Esc
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            gameIsPaused = true;
+            quitScreen.SetActive(!quitScreenActive);
+            quitScreenActive = !quitScreenActive;
+        }
+    }
 
     private void UpdateSelection() {
         if (gameLogic.GetCurrentSelection()) {
@@ -82,6 +137,18 @@ public partial class UIDriver : MonoBehaviour {
         travellingBallsText[0].text = travellingBallsSliders[0].value.ToString();
         travellingBallsText[1].text = travellingBallsSliders[1].value.ToString();
         travellingBallsText[2].text = travellingBallsSliders[2].value.ToString();
+    }
+
+    private void GameTime() {
+        if (gameIsPaused) {
+            Time.timeScale = 1;
+            controlsBackground.color = controlsBackgroundColor;
+        } else {
+            Time.timeScale = 0;
+            Color c = Color.red;
+            controlsBackground.color = c;
+        }
+        
     }
 
     public void ChangeState() {
@@ -181,5 +248,16 @@ public partial class UIDriver : MonoBehaviour {
 
     public static bool IgnoreChange() {
         return ignoreValueChanges;
+    }
+
+    public void ButtonQuit() {
+        Application.Quit();
+    }
+
+    public void ButtonBack() {
+        gameIsPaused = false;
+
+        quitScreen.SetActive(!quitScreenActive);
+        quitScreenActive = !quitScreenActive;
     }
 }

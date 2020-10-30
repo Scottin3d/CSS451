@@ -6,7 +6,8 @@ namespace Utils {
     public static class vectorUtils {
 
         // raycast - returns intersection point on a plane
-        public static bool ScottCast(out Vector3 intersection, Vector3 linePoint, Vector3 lineVec, Vector3 planeNormal, Vector3 planePoint) {
+        public static bool ScottCast(out Vector3 intersection, Vector3 linePoint, Vector3 lineVec, 
+                                         Vector3 planeNormal, Vector3 planePoint) {
             float length;
             float dotNumerator;
             float dotDenominator;
@@ -19,11 +20,7 @@ namespace Utils {
 
             if (dotDenominator != 0.0f) {
                 length = dotNumerator / dotDenominator;
-
                 vector = lineVec.normalized * length;
-
-                //vector = SetVectorLength(lineVec, length);
-
                 intersection = linePoint + vector;
                 return true;
             } else
