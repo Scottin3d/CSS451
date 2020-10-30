@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public partial class UIDriver : MonoBehaviour {
     bool gameIsPaused = false;
-    bool showDebugMode = false;
+    bool debugMode = false;
 
     [SerializeField]
     GameObject quitScreen;
@@ -106,12 +106,20 @@ public partial class UIDriver : MonoBehaviour {
 
         // P: Pause Time
         if (Input.GetKeyDown(KeyCode.P)) {
+            if (gameIsPaused) {
+                Time.timeScale = 1;
+                controlsBackground.color = controlsBackgroundColor;
+            } else {
+                Time.timeScale = 0;
+                Color c = Color.red;
+                controlsBackground.color = c;
+            }
             gameIsPaused = !gameIsPaused;
         }
 
         // F1: Toggle Debug Lines
         if (Input.GetKeyDown(KeyCode.F1)) {
-            Debug.Log("Disable/Enable debug mode");
+            debugMode = !debugMode;
         }
 
         // Esc
@@ -259,5 +267,9 @@ public partial class UIDriver : MonoBehaviour {
 
         quitScreen.SetActive(!quitScreenActive);
         quitScreenActive = !quitScreenActive;
+    }
+
+    public bool DebugMode() {
+        return debugMode;
     }
 }

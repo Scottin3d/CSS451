@@ -37,6 +37,15 @@ namespace Utils {
         public static float Distance(Vector3 lhs, Vector3 rhs) {
             return (lhs - rhs).magnitude;
         }
+
+        public static void AdjustLine(GameObject line, Vector3 p1, Vector3 p2, float lineWidth = 0.1f) {
+            Vector3 V = p2 - p1;
+            float length = V.magnitude;
+
+            line.transform.localPosition = p1 + 0.5f * V;
+            line.transform.localScale = new Vector3(lineWidth, length * 0.5f, lineWidth);
+            line.transform.localRotation = Quaternion.FromToRotation(Vector3.up, V);
+        }
     }
 
 }
