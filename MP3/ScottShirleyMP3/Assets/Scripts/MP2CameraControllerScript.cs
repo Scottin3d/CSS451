@@ -16,11 +16,11 @@ public class MP2CameraControllerScript : MonoBehaviour
 
     [SerializeField]
     Slider cameraFOV;
-    private const float DEFUALT_FOV = 60;
+    private const float DEFUALT_FOV = 45;
 
     [SerializeField]
     Slider cameraViewAngle;
-    private const float DEFAULT_VA = 0;
+    private const float DEFAULT_VA = 22;
 
 
     private void Start() {

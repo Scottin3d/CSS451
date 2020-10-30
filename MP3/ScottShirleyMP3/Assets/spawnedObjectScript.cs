@@ -118,9 +118,10 @@ public class spawnedObjectScript : MonoBehaviour
         // within barrier distance(intersect, planeorigin)
         distancePlaneToReflectionPoint = Utils.vectorUtils.Distance(barrierReflectionPoint, plane.transform.position);
         //&& distancePlaneToReflectionPoint <= reflectionPlaneBias
-        //&& distancePlaneToReflectionPoint <= reflectionPlaneBias
+        //
         if (distanceToReflectionPoint - reflectionOffsetBias <= 0
-         && planeCullCheckDot >= 0) {
+         && planeCullCheckDot >= 0
+         && distancePlaneToReflectionPoint <= reflectionPlaneBias) {
             Reflect();
         }
     }
@@ -139,7 +140,7 @@ public class spawnedObjectScript : MonoBehaviour
     private void IsDead() {
         spawnTime += Time.deltaTime;
         if (spawnTime >= lifeCycle) {
-            Debug.Log("Destroyed");
+            //Debug.Log("Destroyed");
             Destroy(this.gameObject);
             Destroy(lineBall2Intersect);
             Destroy(lineBall2Plane);

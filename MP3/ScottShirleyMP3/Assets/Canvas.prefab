@@ -2180,6 +2180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a6b7fcf3f912c4993953475d7a4c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quitScreen: {fileID: 0}
   state: 0
   controlsBackground: {fileID: 0}
   gameLogic: {fileID: 0}
@@ -4960,7 +4961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraControlObject: {fileID: 0}
-  cameraRotation: {fileID: 0}
+  cameraRotation: {fileID: 2375373656212351722}
   cameraFOV: {fileID: 2375373657037820288}
   cameraViewAngle: {fileID: 2375373655980769036}
 --- !u!1 &2375373656450146475

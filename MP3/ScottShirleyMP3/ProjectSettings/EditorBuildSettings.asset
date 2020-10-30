@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/ScottShirleyMP3.unity
+    guid: cb40e1abc250b644493d53ecc959ce7b
   m_configObjects: {}

@@ -51,7 +51,7 @@ public class prefabSpawnScript : MonoBehaviour {
         previousTime += Time.deltaTime;
         if (previousTime >= spawnInterval) {
             SpawnObject();
-            Debug.Log("Reset Time");
+            //Debug.Log("Reset Time");
             previousTime = 0;
         }
     }

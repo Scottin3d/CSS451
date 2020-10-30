@@ -93,13 +93,13 @@ public partial class UIDriver : MonoBehaviour {
         }
 
         // S
-        if (Input.GetKeyDown(KeyCode.T)) {
+        if (Input.GetKeyDown(KeyCode.S)) {
             scaleToggle.isOn = true;
             ToggleValues(true);
         }
 
         // R
-        if (Input.GetKeyDown(KeyCode.T)) {
+        if (Input.GetKeyDown(KeyCode.R)) {
             rotationToggle.isOn = true;
             ToggleValues(true);
         }

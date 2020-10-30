@@ -13,6 +13,12 @@ public class GameLogic : MonoBehaviour {
     LayerMask ignoredLayer = 0;
 
     [SerializeField]
+    GameObject barrierPlane;
+    Vector3 barrierStartPos;
+    Vector3 barrierStartRot;
+    Vector3 barrierStartScale;
+
+    [SerializeField]
     public GameObject currentSelection;
 
     public Slider[] sliders;
@@ -22,6 +28,13 @@ public class GameLogic : MonoBehaviour {
 
     private void Start() {
         //currentSelection = null;
+        if (!barrierPlane) {
+            barrierPlane = GameObject.Find("TheBarrier");
+        }
+        barrierStartPos = barrierPlane.transform.position;
+        barrierStartRot = barrierPlane.transform.rotation.eulerAngles;
+        barrierStartScale = barrierPlane.transform.localScale;
+
     }
 
     private void Update() {
@@ -47,7 +60,7 @@ public class GameLogic : MonoBehaviour {
                     selected = true;
                     target = hit.collider.gameObject;
                     // debug
-                    Debug.Log(target.name);
+                    //Debug.Log(target.name);
                 }
             }
         } else {
@@ -98,5 +111,11 @@ public class GameLogic : MonoBehaviour {
                     break;
             }
         }
+    }
+
+    public void ResetBarrier() {
+        barrierPlane.transform.position = barrierStartPos;
+        barrierPlane.transform.rotation = Quaternion.FromToRotation(Vector3.up, barrierStartRot);
+        barrierPlane.transform.localScale = barrierStartScale;
     }
 }

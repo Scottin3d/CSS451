@@ -11,7 +11,6 @@ public class aimLineScript : MonoBehaviour
     [SerializeField]
     GameObject p2;
 
-
     private float lineWidth = 0.1f;
 
     [SerializeField]
@@ -32,7 +31,14 @@ public class aimLineScript : MonoBehaviour
     }
 
     private void Update() {
-        Utils.vectorUtils.AdjustLine(this.gameObject, p1.transform.position, p2.transform.position, 0.2f);
+        Utils.vectorUtils.AdjustLine(this.gameObject, p1.transform.position, p2.transform.position, lineWidth);
+        /*
+        Vector3 V = p2.transform.position - p1.transform.position;
+        float length = V.magnitude;
+        transform.localPosition = p1.transform.position + 0.5f * V;
+        transform.localScale = new Vector3(lineWidth, length * 0.5f, lineWidth);
+        transform.localRotation = Quaternion.FromToRotation(Vector3.up, V);
+        */
     }
 
     public Quaternion TravelDirection() {
