@@ -1,19 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class planeNormal : MonoBehaviour {
-    /* References:
-     * https://mathworld.wolfram.com/Point-LineDistance3-Dimensional.html
-     * https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-plane-and-ray-disk-intersection
-     */
+public class cylinderIntersection : MonoBehaviour
+{
     public bool showAllObjects = false;
 
-    public GameObject PtOnPlane;
-    public GameObject plane2;
-    public GameObject ShadowBlob;
+    [Header("Line")]
+    public GameObject lineObject;
+    public Vector3 linePoint;
+    public Vector3 lineDirection;
+    public Vector3 lineNormal;
+    public Vector3 interectPoint;
 
     [Header("Point Objects")]
     public GameObject pointI;
@@ -25,19 +24,19 @@ public class planeNormal : MonoBehaviour {
     public GameObject pointHeightLock;
     public GameObject pointL;
 
-
-    public float radius = 1f;
-    public float length;
-    public float a;
-    public float b;
-    public float x;
-    public Vector3 intersect;
-    public Vector3 vector;
-    public Vector3 cylinderIntersect;
-    public float Distance;
+    [Header("Cylinder")]
+    public GameObject cylinderObject;
+    public GameObject pointCylinderTop;
+    public Vector3 cylinderTopPoint;
+    public GameObject pointCylinderCenter;
+    public Vector3 cylinderCenterPoint;
+    public GameObject pointCylinderBottom;
+    public Vector3 cylinderBottomPoint;
+    public Vector3 cylinderDirection;
+    public Vector3 cylinderNormal;
+    public float cylinderRadius;
 
     [Header("Cylinder Values")]
-    public GameObject cylinder;
     public float distanceFromCylinderPoint;
     public float cylinderHeight;
     public float cylinderHeightDifference;
@@ -45,7 +44,6 @@ public class planeNormal : MonoBehaviour {
     public float lengthCylinder2Intersect;
     public float lengthLine2Intersect;
     public float lengthLine2Cylinder;
-    public float cylinderRadius;
     [Header("Cylinder Angles")]
     public float angleA;
     public float angleB;
@@ -75,32 +73,43 @@ public class planeNormal : MonoBehaviour {
     public float angleGreenB;
     public float angleGreenC;
 
-    private void Awake() {
-        ShadowBlob = Instantiate(Resources.Load("Prefabs/projection") as GameObject, this.transform);
-    }
-
-
     private void Update() {
-        DrawNormal(this.gameObject);
-        pointP.transform.position = PtOnPlane.transform.position;
-        //Debug.DrawLine(this.transform.localPosition, PtOnPlane.transform.localPosition, Color.white);
-        //Debug.DrawLine(this.transform.localPosition, PtOnPlane.transform.position, Color.green);
+        // line setup
+        lineDirection = lineObject.transform.up;
+        linePoint = lineObject.transform.localPosition;
 
-        Vector3 n = -transform.up;
-        Vector3 lineDir = PtOnPlane.transform.up;
-        Vector3 linePt = PtOnPlane.transform.position;
-        Vector3 cylinderPoint = cylinder.transform.localPosition;
-        //cylinderPoint.Normalize();
-        cylinderRadius = cylinder.transform.localScale.x / 2f;
-        Vector3 cylinderTop = cylinderPoint;
-        Vector3 cylinderBottom = cylinderPoint;
-        cylinderTop.y += cylinder.transform.localScale.y;
-        cylinderBottom.y -= cylinder.transform.localScale.y;
-        Vector3 cylinderNormal = -cylinder.transform.up;
+        // cylinder setup
+        cylinderCenterPoint = cylinderObject.transform.localPosition;
+        cylinderTopPoint  = cylinderNormal.normalized * cylinderObject.transform.localScale.x + cylinderCenterPoint;
+        cylinderBottomPoint = -cylinderNormal.normalized * cylinderObject.transform.localScale.x + cylinderCenterPoint;
+        cylinderNormal = cylinderObject.transform.up;
+        cylinderRadius = cylinderObject.transform.localScale.x / 2f;
 
-        if (CylinderCast(out cylinderIntersect, linePt, lineDir, cylinderNormal, cylinderPoint, 0.5f)) {
+        pointCylinderTop.transform.localPosition = cylinderTopPoint;
+        pointCylinderTop.transform.rotation = Quaternion.FromToRotation(Vector3.up, cylinderNormal);
+        pointCylinderTop.GetComponent<MeshRenderer>().enabled = true;
+
+        pointCylinderCenter.transform.position = cylinderCenterPoint;
+        pointCylinderCenter.transform.rotation = Quaternion.FromToRotation(Vector3.up, cylinderNormal);
+        pointCylinderCenter.GetComponent<MeshRenderer>().enabled = true;
+
+        pointCylinderBottom.transform.localPosition = cylinderBottomPoint;
+        pointCylinderBottom.transform.rotation = Quaternion.FromToRotation(Vector3.up, cylinderNormal);
+        pointCylinderBottom.GetComponent<MeshRenderer>().enabled = true;
+        // ==================================
+
+        Debug.DrawLine(cylinderTopPoint, linePoint, Color.white);
+        Debug.DrawLine(cylinderCenterPoint, linePoint, Color.white);
+        Debug.DrawLine(cylinderBottomPoint, linePoint, Color.white);
+
+        if (CylinderIntersect(out interectPoint, linePoint, lineNormal,cylinderNormal, cylinderTopPoint, cylinderCenterPoint , cylinderBottomPoint, cylinderRadius)) { 
+        
+        }
+
+
+        if (CylinderCast(out interectPoint, linePoint, lineDirection, cylinderNormal, cylinderCenterPoint, 0.5f)) {
             pointQ.GetComponent<MeshRenderer>().enabled = true;
-        } else { 
+        } else {
             pointQ.GetComponent<MeshRenderer>().enabled = false;
         }
 
@@ -110,14 +119,16 @@ public class planeNormal : MonoBehaviour {
         pointO.GetComponent<MeshRenderer>().enabled = showAllObjects;
         pointP.GetComponent<MeshRenderer>().enabled = showAllObjects;
         pointL.GetComponent<MeshRenderer>().enabled = showAllObjects;
-        
+
     }
 
-    void DrawNormal(GameObject obj) {
-        Vector3 pt = obj.transform.localPosition;
-        pt.y += 2f;
-        Debug.DrawLine(obj.transform.localPosition, pt, Color.red);
+    bool CylinderIntersect(out Vector3 intersection, Vector3 linePoint, Vector3 lineNormal,
+                                 Vector3 cylinderNormal, Vector3 cylinderTop, Vector3 cylinderCenterPoint, Vector3 cylinderBottom, float radius) {
+        intersection = Vector3.zero;
+
+        return true;
     }
+
 
     public bool ScottCast(out Vector3 intersection, Vector3 linePoint, Vector3 lineNormal, Vector3 planeNormal, Vector3 planePoint, float length = 1f) {
 
@@ -144,10 +155,10 @@ public class planeNormal : MonoBehaviour {
             return false;
     }
 
-    public bool CylinderCast(out Vector3 intersection, Vector3 linePoint, Vector3 lineNormal, 
+    public bool CylinderCast(out Vector3 intersection, Vector3 linePoint, Vector3 lineNormal,
                                  Vector3 cylinderNormal, Vector3 cylinderPoint, float radius) {
         intersection = Vector3.zero;
-        
+
         // Orthogonal
         Vector3 linePlaneOrthogonal;
         if (ScottCast(out linePlaneOrthogonal, linePoint, lineNormal, cylinderNormal, cylinderPoint)) {
@@ -157,7 +168,7 @@ public class planeNormal : MonoBehaviour {
         }
 
         distanceFromCylinderPoint = Vector3.Distance(linePlaneOrthogonal, cylinderPoint);
-        
+
 
         // line2cylinderPlane
         Vector3 lineCylinderNormalPoint;
@@ -250,7 +261,7 @@ public class planeNormal : MonoBehaviour {
 
         // ==================================
         // green angles
-        angleGreenA = Vector3.Angle((linePoint - linePlaneOrthogonal),(lineCylinderNormalPoint - linePlaneOrthogonal));
+        angleGreenA = Vector3.Angle((linePoint - linePlaneOrthogonal), (lineCylinderNormalPoint - linePlaneOrthogonal));
         float angleGreedArad = angleGreenA * Mathf.Deg2Rad;
         angleGreenB = 90f;
         float angleGreedBrad = angleGreenB * Mathf.Deg2Rad;
@@ -277,8 +288,9 @@ public class planeNormal : MonoBehaviour {
 
         // pointHeightLock
         // only stays withing the bounds of the cylinder
-        
 
+
+        /*
         // magenta lines
         Debug.DrawLine(cylinderPoint, lPoint, Color.magenta);
         Debug.DrawLine(cylinderPoint, mPoint, Color.magenta);
@@ -295,18 +307,18 @@ public class planeNormal : MonoBehaviour {
         Debug.DrawLine(linePoint, cylinderPoint, Color.red);
         Debug.DrawLine(linePoint, lineCylinderNormalPoint, Color.red);
         Debug.DrawLine(cylinderPoint, lineCylinderNormalPoint, Color.red);
+        */
 
 
-       
-        cylinderHeight = cylinder.transform.localScale.y * 2f;
+        cylinderHeight = cylinderObject.transform.localScale.y * 2f;
         cylinderHeightDifference = qPoint.y - cylinderPoint.y;
         if (cylinderHeightDifference > cylinderHeight / 2f) {
             Debug.Log("Outside of cylidner");
             return false;
         }
         intersection = qPoint;
-        
-        
+
+
         return true;
     }
 }
