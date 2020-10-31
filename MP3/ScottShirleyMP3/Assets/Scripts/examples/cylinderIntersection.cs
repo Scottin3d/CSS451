@@ -127,7 +127,7 @@ public class cylinderIntersection : MonoBehaviour
         intersection = Vector3.zero;
 
         return true;
-    }
+  
 
 
     public bool ScottCast(out Vector3 intersection, Vector3 linePoint, Vector3 lineNormal, Vector3 planeNormal, Vector3 planePoint, float length = 1f) {
