@@ -6,7 +6,7 @@ namespace Utils {
     public static class vectorUtils {
 
         // raycast - returns intersection point on a plane
-        public static bool ScottCast(out Vector3 intersection, Vector3 linePoint, Vector3 lineVec, 
+        public static bool ScottCast(out Vector3 intersection, Vector3 linePoint, Vector3 lineNormal, 
                                          Vector3 planeNormal, Vector3 planePoint) {
             float length;
             float dotNumerator;
@@ -16,11 +16,11 @@ namespace Utils {
 
             //calculate the distance between the linePoint and the line-plane intersection point
             dotNumerator = Vector3.Dot((planePoint - linePoint), planeNormal);
-            dotDenominator = Vector3.Dot(lineVec, planeNormal);
+            dotDenominator = Vector3.Dot(lineNormal, planeNormal);
 
             if (dotDenominator != 0.0f) {
                 length = dotNumerator / dotDenominator;
-                vector = lineVec.normalized * length;
+                vector = lineNormal.normalized * length;
                 intersection = linePoint + vector;
                 return true;
             } else

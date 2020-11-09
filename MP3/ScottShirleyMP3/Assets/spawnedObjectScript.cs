@@ -31,6 +31,13 @@ public class spawnedObjectScript : MonoBehaviour
     public Vector3 shadowIntersectPoint;
     public float distance;
 
+    [Header("Big Line")]
+    [SerializeField]
+    GameObject bigLineObject;
+    [SerializeField]
+    GameObject bigLineProjection;
+    Vector3 bigLineProjectionPoint;
+
     [Header("Refections Values")]
     public float distanceToReflectionPoint;
     public float distancePlaneToReflectionPoint;
@@ -45,6 +52,7 @@ public class spawnedObjectScript : MonoBehaviour
     GameObject lineBall2Intersect;
     GameObject lineIntersect2Plane;
     GameObject lineBall2Shadow;
+    GameObject lineBall2BigLine;
 
     private void Awake() {
         // get components
@@ -77,6 +85,10 @@ public class spawnedObjectScript : MonoBehaviour
         Projection = Instantiate(Resources.Load("Prefabs/projection") as GameObject, this.transform);
         Projection.GetComponent<MeshRenderer>().enabled = activeProjection;
         shadowTarget = GameObject.Find("thunderDome");
+
+        bigLineObject = GameObject.Find("BigLine").transform.GetChild(0).gameObject;
+        bigLineProjection = Instantiate(Resources.Load("Prefabs/sphereProjection") as GameObject, this.transform);
+        bigLineProjection.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
     // initialize debug lines for visual aide
@@ -93,6 +105,8 @@ public class spawnedObjectScript : MonoBehaviour
         lineBall2Shadow = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         lineBall2Shadow.GetComponent<MeshRenderer>().material.color = Color.black;
 
+        lineBall2BigLine = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        lineBall2BigLine.GetComponent<MeshRenderer>().material.color = Color.red;
     }
 
     // update method
@@ -146,6 +160,7 @@ public class spawnedObjectScript : MonoBehaviour
             Destroy(lineBall2Plane);
             Destroy(lineIntersect2Plane);
             Destroy(lineBall2Shadow);
+            Destroy(lineBall2BigLine);
         }
     }
 
@@ -186,6 +201,18 @@ public class spawnedObjectScript : MonoBehaviour
             Vector3 pos = shadowIntersectPoint;
             pos.y += 0.1f;
             Projection.transform.position = pos;
+
+
+            Vector3 bigLinePos = bigLineObject.transform.position;
+            Vector3 bigLineNormal = -bigLineObject.transform.up;
+            // bigline projection
+            bigLineProjectionPoint = Vector3.zero;
+            Utils.vectorUtils.AdjustLine(lineBall2BigLine, linePt, bigLinePos, 0.05f);
+            Vector3 bigLineProjectionDir = linePt - bigLinePos;
+            bigLineProjectionPoint = bigLineProjectionDir.normalized * bigLineObject.transform.localScale.x / 2f + bigLinePos;
+            bigLineProjection.transform.position = bigLineProjectionPoint;
+            bigLineProjection.transform.rotation = Quaternion.FromToRotation(Vector3.up, lineDir);
+
         }
 
         // draw line from ball to plane center

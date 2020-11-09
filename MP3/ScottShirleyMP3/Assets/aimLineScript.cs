@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 
-public class aimLineScript : MonoBehaviour
-{
+public class aimLineScript : MonoBehaviour {
     [SerializeField]
     GameObject p1;
 
     [SerializeField]
     GameObject p2;
 
-    private float lineWidth = 0.1f;
+    [Range(0f,5f)]
+    public float lineWidth = 0.1f;
 
     [SerializeField]
     Color color = Color.black;
