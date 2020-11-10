@@ -9,23 +9,10 @@ public class MP4CameraControllerScript : MonoBehaviour
 {
     [SerializeField]
     float cameraDistance;
-    const float DEFAULT_CAMERADISTANCE = 12f;
     float cameraZoomSensitivity = 5f;
-    float zoomAmount = 0f;
-
-    Vector3 DEFAULT_LOOKATPOS = new Vector3(0f, 2f, 3f);
     Vector3 lookAtPosition;
 
     public GameObject cameraObj;
-
-    Slider cameraFOV;
-    private const float DEFUALT_FOV = 45;
-
-    Vector3 DEFAULT_CAMERAPOS = new Vector3();
-
-    private void Awake() {
-        //mainCamera = Camera.main;
-    }
 
     private void Update() {
         lookAtPosition = transform.position;
@@ -37,10 +24,7 @@ public class MP4CameraControllerScript : MonoBehaviour
             cameraDistance -= Input.GetAxis("Mouse ScrollWheel") * cameraZoomSensitivity;
             Zoom();
         }
-
-        if (Input.GetKeyUp(KeyCode.LeftAlt)) {
-            zoomAmount = 0;
-        }
+        
         LookAt();
     }
 
@@ -56,15 +40,7 @@ public class MP4CameraControllerScript : MonoBehaviour
         cameraObj.transform.position = cameraPos;
     }
 
-#region 
-    public void ResetTransform() {
-        transform.position = DEFAULT_LOOKATPOS;
-        transform.rotation = Quaternion.FromToRotation(transform.rotation.eulerAngles, Vector3.up);
-        cameraFOV.value = DEFUALT_FOV;
-        cameraDistance = DEFAULT_CAMERADISTANCE;
-    }
     public void SetFOV(float fov) {
         Camera.main.fieldOfView = fov;
     }
- #endregion
 }

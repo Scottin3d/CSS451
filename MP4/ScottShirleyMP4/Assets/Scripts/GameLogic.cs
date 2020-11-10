@@ -14,8 +14,6 @@ public class GameLogic : MonoBehaviour {
     public GameObject currentSelection;
 
     public Slider[] sliders;
-
-    bool selected = false;
     GameObject target;
 
     public GameObject GetCurrentSelection() {
