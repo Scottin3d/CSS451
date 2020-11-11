@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+
 public class MP4xFormScript : MonoBehaviour {
     // Translate, rotate and scale a mesh. Try altering
     // the parameters in the inspector while running
@@ -12,6 +12,7 @@ public class MP4xFormScript : MonoBehaviour {
     public Vector3 eulerAngles;
     public Vector3 scale = new Vector3(1, 1, 1);
 
+    public Vector3 pivot;
 
     MeshFilter mf;
     Vector3[] origVerts;
@@ -28,12 +29,30 @@ public class MP4xFormScript : MonoBehaviour {
 
 
     void Update() {
+        //update pivot
+        UpdatePivot();
+
+
         // Set a Quaternion from the specified Euler angles.
         Quaternion rotation = Quaternion.Euler(eulerAngles.x, eulerAngles.y, eulerAngles.z);
 
         // Set the translation, rotation and scale parameters.
         Matrix4x4 m = Matrix4x4.TRS(translation, rotation, scale);
 
+        // For each vertex...
+        for (int i = 0; i < origVerts.Length; i++) {
+            // Apply the matrix to the vertex.
+            newVerts[i] = m.MultiplyPoint3x4(origVerts[i]);
+        }
+
+        // Copy the transformed vertices back to the mesh.
+        mf.mesh.vertices = newVerts;
+    }
+
+    void UpdatePivot() {
+        Quaternion pRotation = Quaternion.Euler(0f,0f,0f);
+        Vector3 pScale = Vector3.one;
+        Matrix4x4 m = Matrix4x4.TRS(pivot, pRotation, pScale);
         // For each vertex...
         for (int i = 0; i < origVerts.Length; i++) {
             // Apply the matrix to the vertex.
