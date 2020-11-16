@@ -18,7 +18,7 @@ public class MP4CameraControllerScript : MonoBehaviour {
     public Vector3 mouseOrigin;
     public float mouseDistance;
     float panSpeed = 0.5f;
-    float turnSpeed = 20f;
+    float turnSpeed = 20f;  
     public bool isAlt = false;
     public bool isPanning;
     public bool isRotating;
