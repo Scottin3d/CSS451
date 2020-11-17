@@ -131,6 +131,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1134160084}
     m_Modifications:
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.g
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953,
         type: 3}
       propertyPath: m_Name
@@ -378,28 +388,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!21 &58699000
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 451material (Instance) (Instance)
-  m_Shader: {fileID: 4800000, guid: ef669d656f94dcb45936bb472eb6f0c7, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1 &63562698
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,7 +543,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 239729274}
+      objectReference: {fileID: 1238517138}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0721167608df484a850972eab812054, type: 3}
 --- !u!4 &134423216 stripped
@@ -588,7 +576,7 @@ GameObject:
   m_Layer: 0
   m_Name: baseObjects
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -958,6 +946,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 682635850}
     m_Modifications:
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953,
         type: 3}
       propertyPath: m_Name
@@ -1041,28 +1039,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 226544237}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &239729274
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 451material (Instance) (Instance)
-  m_Shader: {fileID: 4800000, guid: ef669d656f94dcb45936bb472eb6f0c7, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1 &261123349
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,28 +1519,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515355906}
   m_CullTransparentMesh: 0
---- !u!21 &561327479
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 451material (Instance) (Instance)
-  m_Shader: {fileID: 4800000, guid: ef669d656f94dcb45936bb472eb6f0c7, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1 &592899004
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,6 +1529,7 @@ GameObject:
   m_Component:
   - component: {fileID: 592899005}
   - component: {fileID: 592899006}
+  - component: {fileID: 592899007}
   m_Layer: 0
   m_Name: CameraObj
   m_TagString: Untagged
@@ -1594,6 +1549,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1847586331}
+  - {fileID: 1383689310}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1618,6 +1574,21 @@ MonoBehaviour:
   isPanning: 0
   isRotating: 0
   isZooming: 0
+--- !u!114 &592899007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592899004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a54591fd3bf20da43aa8f4168002a331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LookAtPosition: {fileID: 1090242115}
+  LineOfSight: {fileID: 1383689306}
+  ComputeMode: 0
 --- !u!1001 &626351997
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2686,6 +2657,28 @@ Transform:
   m_Father: {fileID: 138514224}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 330, z: 0}
+--- !u!21 &758760325
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 451material (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: ef669d656f94dcb45936bb472eb6f0c7, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1 &789861490
 GameObject:
   m_ObjectHideFlags: 0
@@ -2909,6 +2902,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1710334070}
     m_Modifications:
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953,
         type: 3}
       propertyPath: m_Name
@@ -3152,6 +3155,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 323341343}
     m_Modifications:
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953,
         type: 3}
       propertyPath: m_Name
@@ -3304,6 +3317,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffed9d906eeb7634d88b24b0226ebd95, type: 3}
+--- !u!21 &988268336
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 451material (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: ef669d656f94dcb45936bb472eb6f0c7, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1 &1015466220
 GameObject:
   m_ObjectHideFlags: 0
@@ -3479,6 +3514,12 @@ LightingSettings:
 --- !u!1 &1090242112 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5788049447136160559, guid: 90a6ac54cdd351e40bc010a7d6049403,
+    type: 3}
+  m_PrefabInstance: {fileID: 5788049446047165807}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1090242115 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5788049447136160555, guid: 90a6ac54cdd351e40bc010a7d6049403,
     type: 3}
   m_PrefabInstance: {fileID: 5788049446047165807}
   m_PrefabAsset: {fileID: 0}
@@ -3811,7 +3852,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1718327262}
+      objectReference: {fileID: 1218205974}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0721167608df484a850972eab812054, type: 3}
 --- !u!4 &1193303047 stripped
@@ -3839,6 +3880,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1896496917}
     m_Modifications:
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953,
         type: 3}
       propertyPath: m_Name
@@ -3997,6 +4043,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1197392560}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1218205974
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 451material (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: ef669d656f94dcb45936bb472eb6f0c7, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1001 &1227915693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4013,7 +4081,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 561327479}
+      objectReference: {fileID: 1458707005}
     - target: {fileID: 257009641566718682, guid: ffed9d906eeb7634d88b24b0226ebd95,
         type: 3}
       propertyPath: Pivot.y
@@ -4081,6 +4149,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffed9d906eeb7634d88b24b0226ebd95, type: 3}
+--- !u!21 &1238517138
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 451material (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: ef669d656f94dcb45936bb472eb6f0c7, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1 &1287095145
 GameObject:
   m_ObjectHideFlags: 0
@@ -4203,7 +4293,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2062293134}
+      objectReference: {fileID: 988268336}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0721167608df484a850972eab812054, type: 3}
 --- !u!4 &1305748122 stripped
@@ -4452,6 +4542,115 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &1383689305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1383689310}
+  - component: {fileID: 1383689309}
+  - component: {fileID: 1383689308}
+  - component: {fileID: 1383689307}
+  - component: {fileID: 1383689306}
+  m_Layer: 0
+  m_Name: Cylinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1383689306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383689305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f855201eac3be42b6405461181d137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &1383689307
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383689305}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!23 &1383689308
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383689305}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1383689309
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383689305}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1383689310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383689305}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 592899005}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1389496372
 GameObject:
   m_ObjectHideFlags: 0
@@ -4538,6 +4737,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1040928725}
     m_Modifications:
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.g
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953,
         type: 3}
       propertyPath: m_Name
@@ -4628,6 +4837,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 281298081}
     m_Modifications:
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953,
         type: 3}
       propertyPath: m_Name
@@ -4711,6 +4930,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1432185224}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1458707005
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 451material (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: ef669d656f94dcb45936bb472eb6f0c7, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1 &1511750266
 GameObject:
   m_ObjectHideFlags: 0
@@ -5007,6 +5248,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1997765484}
     m_Modifications:
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953,
         type: 3}
       propertyPath: m_Name
@@ -5097,6 +5348,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 63562699}
     m_Modifications:
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.g
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953,
         type: 3}
       propertyPath: m_Name
@@ -5187,6 +5448,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1615764892}
     m_Modifications:
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953,
         type: 3}
       propertyPath: m_Name
@@ -5301,28 +5567,6 @@ Transform:
   m_Father: {fileID: 138514224}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
---- !u!21 &1718327262
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 451material (Instance) (Instance)
-  m_Shader: {fileID: 4800000, guid: ef669d656f94dcb45936bb472eb6f0c7, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1001 &1799287783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5419,7 +5663,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 58699000}
+      objectReference: {fileID: 758760325}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0721167608df484a850972eab812054, type: 3}
 --- !u!1 &1847586328
@@ -5433,6 +5677,7 @@ GameObject:
   - component: {fileID: 1847586331}
   - component: {fileID: 1847586330}
   - component: {fileID: 1847586329}
+  - component: {fileID: 1847586332}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -5505,6 +5750,21 @@ Transform:
   m_Father: {fileID: 592899005}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1847586332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847586328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a54591fd3bf20da43aa8f4168002a331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LookAtPosition: {fileID: 0}
+  LineOfSight: {fileID: 0}
+  ComputeMode: 0
 --- !u!1001 &1890605057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5512,6 +5772,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1613817967}
     m_Modifications:
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953,
         type: 3}
       propertyPath: m_Name
@@ -6157,28 +6427,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028367974}
   m_CullTransparentMesh: 0
---- !u!21 &2062293134
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 451material (Instance) (Instance)
-  m_Shader: {fileID: 4800000, guid: ef669d656f94dcb45936bb472eb6f0c7, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1 &2095158389
 GameObject:
   m_ObjectHideFlags: 0
@@ -6508,6 +6756,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1019512012}
     m_Modifications:
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4592482760727720171, guid: e289bf5debb17f6459818c207d781953,
+        type: 3}
+      propertyPath: treeColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953,
         type: 3}
       propertyPath: m_Name
