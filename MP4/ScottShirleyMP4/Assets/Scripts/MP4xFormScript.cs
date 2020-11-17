@@ -12,7 +12,7 @@ public class MP4xFormScript : MonoBehaviour {
     public Vector3 eulerAngles;
     public Vector3 scale = new Vector3(1, 1, 1);
 
-    public Vector3 pivot;
+    public Vector3 pivot = Vector3.zero;
 
     MeshFilter mf;
     Vector3[] origVerts;

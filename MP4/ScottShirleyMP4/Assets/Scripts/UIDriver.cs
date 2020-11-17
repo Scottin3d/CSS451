@@ -134,7 +134,7 @@ public partial class UIDriver : MonoBehaviour {
         if (gameLogic.GetCurrentSelection()) {
             objectSelected.text = gameLogic.GetCurrentSelection().name;
         } else {
-            objectSelected.text = "none";
+            //objectSelected.text = "none";
         }
     }
 

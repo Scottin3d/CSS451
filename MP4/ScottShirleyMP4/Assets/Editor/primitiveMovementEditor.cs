@@ -6,9 +6,24 @@ using UnityEngine;
 [CustomEditor(typeof(primitiveMovement))]
 public class primitiveMovementEditor : Editor
 {
+    //SerializedProperty child;
+    void OnEnable() {
+        //child = serializedObject.FindProperty("child");
+    }
     public override void OnInspectorGUI() {
         //base.OnInspectorGUI();
         primitiveMovement myScript = target as primitiveMovement;
+
+        EditorGUILayout.LabelField("Rotation Object", EditorStyles.boldLabel);
+        //serializedObject.Update();
+        //child.objectReferenceValue = (GameObject)EditorGUILayout.ObjectField("Child", child.objectReferenceValue, typeof(GameObject), true);
+        //serializedObject.ApplyModifiedProperties();
+        //myScript.child = (GameObject)child.objectReferenceValue;
+
+        myScript.pivot = EditorGUILayout.Vector3Field("Rotation Pivot", myScript.pivot);
+
+
+
         // x
         EditorGUILayout.LabelField("X Rotation", EditorStyles.boldLabel);
         myScript.xRotate = EditorGUILayout.Toggle("Use Rotation", myScript.xRotate);
