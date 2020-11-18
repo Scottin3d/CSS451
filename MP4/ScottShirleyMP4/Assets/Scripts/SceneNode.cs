@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class SceneNode : MonoBehaviour {
+    bool selected = false;
 
     protected Matrix4x4 mCombinedParentXform;
 
@@ -10,7 +12,11 @@ public class SceneNode : MonoBehaviour {
     public List<NodePrimitive> PrimitiveList;
 
     public Transform AxisFrame = null;
-    public Vector3 kDefaultTreeTip = new Vector3(0.19f, 12.69f, 3.88f);
+    //public Vector3 kDefaultTreeTip = new Vector3(0.19f, 12.69f, 3.88f);
+    public Vector3 kDefaultTreeTip = Vector3.zero;
+
+    public Vector3 headTip = Vector3.zero;
+    public Transform head = null;
     public bool UseUnity = false;
 
     // Use this for initialization
@@ -19,12 +25,16 @@ public class SceneNode : MonoBehaviour {
         // Debug.Log("PrimitiveList:" + PrimitiveList.Count);
     }
 
-    // Update is called once per frame
-    void Update() {
-    }
-
     private void InitializeSceneNode() {
         mCombinedParentXform = Matrix4x4.identity;
+    }
+
+    void CalcHead() {
+        Vector3 dir = AxisFrame.up;
+        float distance = transform.localScale.y * 2f;
+        Vector3 headTip = dir.normalized * distance + AxisFrame.position;
+        head.position = headTip;
+        head.rotation = Quaternion.FromToRotation(Vector3.up, AxisFrame.up);
     }
 
     // This must be called _BEFORE_ each draw!! 
@@ -47,10 +57,11 @@ public class SceneNode : MonoBehaviour {
             p.LoadShaderMatrix(ref mCombinedParentXform);
         }
 
-        // Compute AxisFrame 
+
+        // Compute AxisFrame
         if (AxisFrame != null) {
             AxisFrame.localPosition = mCombinedParentXform.MultiplyPoint(kDefaultTreeTip);
-
+            
             // 
             // What is going on in the next two lines of code?
             Vector3 up = mCombinedParentXform.GetColumn(1).normalized;
@@ -70,5 +81,6 @@ public class SceneNode : MonoBehaviour {
                 AxisFrame.localRotation = Quaternion.AngleAxis(angle, axis) * AxisFrame.localRotation;
             }
         }
+        CalcHead();
     }
 }
