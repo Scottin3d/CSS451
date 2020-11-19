@@ -11,7 +11,7 @@ public class SceneNode : MonoBehaviour {
     public Vector3 NodeOrigin = Vector3.zero;
     public List<NodePrimitive> PrimitiveList;
 
-    public Transform AxisFrame = null;
+    public Transform AxisFrame;
     //public Vector3 kDefaultTreeTip = new Vector3(0.19f, 12.69f, 3.88f);
     public Vector3 kDefaultTreeTip = Vector3.zero;
 
@@ -26,6 +26,7 @@ public class SceneNode : MonoBehaviour {
     }
 
     private void InitializeSceneNode() {
+        AxisFrame = new GameObject().transform;
         mCombinedParentXform = Matrix4x4.identity;
     }
 

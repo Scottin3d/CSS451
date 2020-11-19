@@ -6,7 +6,7 @@ public class miniCameraScript : MonoBehaviour
 {
 
     public Transform lookAt = null;
-    public Transform miniCam = null;
+    public Transform miniCamT = null;
     public Vector3 miniCamPos = Vector3.zero;
 
     public GameObject root = null;
@@ -19,11 +19,12 @@ public class miniCameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        miniCam = TreeTip(root.transform);
-        transform.rotation = Quaternion.FromToRotation(Vector3.up, miniCam.up);
+        miniCamT = TreeTip(root.transform);
+        transform.rotation = Quaternion.FromToRotation(Vector3.up, miniCamT.up);
 
-        miniCamPos = miniCam.GetComponent<SceneNode>().headTip;
-        transform.localPosition = miniCamPos;
+        miniCamPos = miniCamT.GetComponent<SceneNode>().head.position;
+        transform.position = miniCamPos;
+        transform.rotation = Quaternion.FromToRotation(Vector3.up, miniCamT.up);
 
     }
 

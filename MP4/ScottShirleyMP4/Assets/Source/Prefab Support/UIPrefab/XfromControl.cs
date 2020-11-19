@@ -14,6 +14,9 @@ public class XfromControl : MonoBehaviour {
     [Header("Axis")]
     public Transform axisObj = null;
 
+    [Header("Minicam")]
+    Camera miniCam = null;
+
 	// Use this for initialization
 	void Start () {
         T.onValueChanged.AddListener(SetToTranslation);
@@ -30,10 +33,27 @@ public class XfromControl : MonoBehaviour {
 	}
 
     private void Update() {
+        AxisObj();
+        MiniCam();
+    }
+
+    void AxisObj() {
         Transform pos = mSelected.GetComponent<SceneNode>().AxisFrame;
         axisObj.transform.position = pos.position;
         axisObj.rotation = Quaternion.FromToRotation(Vector3.up, pos.up);
     }
+
+    void MiniCam() {
+        // camera
+        Transform miniCamPos = mSelected.GetComponent<SceneNode>().head;
+        miniCam.transform.position = miniCamPos.position;
+        miniCam.transform.rotation = Quaternion.FromToRotation(Vector3.up, miniCamPos.up);
+
+        // look at
+    }
+
+
+
 
     //---------------------------------------------------------------------------------
     // Initialize slider bars to specific function
