@@ -16,7 +16,8 @@ public class SceneNode : MonoBehaviour {
     public Vector3 kDefaultTreeTip = Vector3.zero;
 
     public Vector3 headTip = Vector3.zero;
-    public Transform head = null;
+    
+    public Transform head;
     public bool UseUnity = false;
 
     // Use this for initialization
@@ -27,6 +28,10 @@ public class SceneNode : MonoBehaviour {
 
     private void InitializeSceneNode() {
         AxisFrame = new GameObject().transform;
+        AxisFrame.name = transform.name + "AxisFrame";
+        head = new GameObject().transform;
+        head.name = transform.name + "head";
+
         mCombinedParentXform = Matrix4x4.identity;
     }
 
